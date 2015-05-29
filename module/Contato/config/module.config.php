@@ -20,36 +20,32 @@ return array(
                     ),
                 ),
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'contato' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/contato',
+            # literal para action sobre home
+            'sobre' => array(
+                'type'      => 'Literal',
+                'options'   => array(
+                    'route'    => '/sobre',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Contato\Controller',
-                        'controller'    => 'Home',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
+                        'controller' => 'Contato\Controller\Home',
+                        'action'     => 'sobre',
                     ),
                 ),
             ),
+            'contatos' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/contatos[/:action][/:id]',
+                    'constraints' => array(
+                        'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'        => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller'    => 'Contato\Controller\Contatos',
+                        'action'        => 'index',
+                    ),
+                ),
+            ),
+            
         ),
     ),
     'service_manager' => array(
@@ -73,7 +69,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Contato\Controller\Home' => 'Contato\Controller\HomeController'
+            'Contato\Controller\Home' => 'Contato\Controller\HomeController',
+            'Contato\Controller\Contatos' => 'Contato\Controller\ContatosController',
         ),
     ),
     'view_manager' => array(
