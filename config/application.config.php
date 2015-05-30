@@ -9,6 +9,7 @@ return array(
     'modules' => array(
         'ZFTool',
         'Contato',
+        'ZendDeveloperTools',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
