@@ -4,33 +4,98 @@
             Editar Contato ID <?php echo $this->id; ?>        
         </div>
     </div>
-    <form class="form-horizontal" role="form" method="POST" action="<?php echo $this->url('contatos', array('action' => 'atualizar')); ?>">
-        <div class="panel-body">
-            <div class="form-group">
-                <label for="inputNome" class="col-lg-3 col-md-3 control-label">Nome:</label>
-                <div class="col-lg-9 col-md-9">
-                    <input type="text" name="nome" class="form-control" id="inputNome" placeholder="Nome Completo" value="<?php echo $this->escapeHtml($this->form['nome']); ?>">
-                </div>
-            </div>
- 
-            <div class="form-group">
-                <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Tel. Principal:</label>
-                <div class="col-lg-9  col-md-9">
-                    <input type="text" name="telefone_principal" class="form-control" id="inputTelefonePrincipal" placeholder="Digite seu telefone principal" value="<?php echo $this->escapeHtml($this->form['telefone_principal']); ?>">
-                </div>
-            </div>
- 
-            <div class="form-group">
-                <label for="inputTelefoneSecundario" class="col-lg-3 col-md-3 control-label">Tel. Secundário:</label>
-                <div class="col-lg-9  col-md-9">
-                    <input type="text" name="telefone_secundario" class="form-control" id="inputTelefoneSecundario" placeholder="Digite seu telefone secundário(opcional)" value="<?php echo $this->escapeHtml($this->form['telefone_secundario']); ?>">
-                </div>
+    <?php
+    // objeto form contato
+    $formContato = $this->formContato;
+    // preparar elementos do formulário
+    $formContato->prepare();
+    // configurar url formulário
+    $formContato->setAttribute('action', $this->url('contatos', ['action' => 'atualizar']));
+    ?>
+    
+    <?php // renderiza html <form> com atributos configurados no objeto ?>
+    <?php echo $this->form()->openTag($formContato) ?>
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="inputNome" class="col-lg-3 col-md-3 control-label">Nome*:</label>
+            <div class="col-lg-9 col-md-9">
+                <?php 
+                // renderiza html input
+                echo $this->formInput($formContato->get('nome'));
+                
+                // renderiza elemento de erro
+                echo $this->formElementErrors()
+                        ->setMessageOpenFormat('<small class="text-danger">')
+                        ->setMessageSeparatorString('</small><br/><small class="text-danger">')
+                        ->setMessageCloseString('</small>')
+                        ->render($formContato->get('nome'));
+                ?>
             </div>
         </div>
-        <div class="panel-footer">
-            <input type="hidden" name="id" value="<?php echo $this->id; ?>">
-            <button type="submit" class="btn btn-primary">Atualizar Contato</button>
-            <a href="<?php echo $this->url('contatos'); ?>" class="btn btn-default">Voltar</a>
+ 
+        <div class="form-group">
+            <label for="inputTelefonePrincipal" class="col-lg-3 col-md-3 control-label">Tel. Principal*:</label>
+            <div class="col-lg-9  col-md-9">
+                <?php
+                // renderiza html input
+                echo $this->formInput($formContato->get('telefone_principal'));
+                
+                // renderiza elemento de erro
+                echo $this->formElementErrors()
+                        ->setMessageOpenFormat('<small class="text-danger">')
+                        ->setMessageSeparatorString('</small><br/><small class="text-danger">')
+                        ->setMessageCloseString('</small>')
+                        ->render($formContato->get('telefone_principal'));
+                ?>
+            </div>
         </div>
-    </form>
+ 
+        <div class="form-group">
+            <label for="inputTelefoneSecundario" class="col-lg-3 col-md-3 control-label">Tel. Secundário:</label>
+            <div class="col-lg-9  col-md-9">
+                <?php
+                // renderiza html input
+                echo $this->formInput($formContato->get('telefone_secundario'));
+                
+                // renderiza elemento de erro
+                echo $this->formElementErrors()
+                        ->setMessageOpenFormat('<small class="text-danger">')
+                        ->setMessageSeparatorString('</small><br/><small class="text-danger">')
+                        ->setMessageCloseString('</small>')
+                        ->render($formContato->get('telefone_secundario'));
+                ?>
+            </div>
+        </div>
+ 
+        <div class="form-group">
+            <label for="inputCaptcha" class="col-lg-3 col-md-3 control-label">Verificação*:</label>
+            <div class="col-lg-9  col-md-9" id="captcha">
+                <?php
+                // renderiza captcha
+                echo $this->formCaptcha($formContato->get('captcha'));
+                
+                // renderiza elemento de erro
+                echo $this->formElementErrors()
+                        ->setMessageOpenFormat('<small class="text-danger">')
+                        ->setMessageSeparatorString('</small><br/><small class="text-danger">')
+                        ->setMessageCloseString('</small>')
+                        ->render($formContato->get('captcha'));
+                ?>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <?php
+        // renderiza html input hidden para id
+        echo $this->formHidden($formContato->get('id'));
+        // renderiza html input hidden csrf
+        echo $this->formElement($formContato->get('security')); 
+        ?>
+ 
+        <button type="submit" class="btn btn-primary">Atualizar Contato</button>
+        <a href="<?php echo $this->url('contatos'); ?>" class="btn btn-default">Voltar</a>
+    </div>
+ 
+    <?php // renderiza html </form> ?>
+    <?php echo $this->form()->closeTag() ?>
 </div>
