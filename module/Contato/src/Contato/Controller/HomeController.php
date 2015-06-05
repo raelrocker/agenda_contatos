@@ -20,7 +20,22 @@ class HomeController extends AbstractActionController
                     var_dump($data);
                     echo '</pre>' . str_repeat($caracter, 100) . '<br/><br/>';
                 };
- 
+                
+        if (!$this->cache()->hasItem('nome'))
+        {
+            $myVarDump(
+                "Registro de Cache Agora",
+                $this->cache()->setItem('nome', 'igor')
+            );
+        }
+        else
+        {
+            $myVarDump(
+                "Cache existente",
+                $this->cache()->getItem('nome')
+            );
+        }
+                
         /**
          * conexão com banco
          */

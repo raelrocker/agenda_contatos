@@ -88,3 +88,7 @@ body {
 #captcha #inputCaptcha {
     text-transform:uppercase;
 }
+
+ul.dropdown-menu {
+    min-width: 198px;
+}

@@ -21,3 +21,16 @@ $(function (){
     // mascara para captcha com 12 caracteres apenas alfabéticos: xxxxxxxxxxxx
     $("input#inputCaptcha").mask("aaaaaaaaaaaa");
 });
+
+/**
+ * plugin typeahead
+ */
+$(function(){
+   $('input.typeahead').typeahead({
+       ajax: {
+           url: '/contatos/search', // url do serviço AJAX
+           triggerLength: 2,        // mínimo de caracteres
+           displayField: 'nome',    // campo do JSON utilizado de retorno
+       }
+   }); 
+});

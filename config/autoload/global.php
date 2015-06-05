@@ -11,5 +11,8 @@ return array(
         'factories' => array(
             'AdapterDb'   => 'Zend\Db\Adapter\AdapterServiceFactory', // new Zend\Db\Adapter\AdapterServiceFactory
         ),
+        'abstract_factories' => array(
+            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
+        ),
     ),
 );
